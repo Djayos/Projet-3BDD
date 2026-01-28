@@ -12,7 +12,7 @@ router.get("/visits", async (req, res) => {
   }
 });
 
-// read visits without increment
+// get nb visits
 router.get("/visits/value", async (req, res) => {
   try {
     const value = await redisClient.get("visits");
