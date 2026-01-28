@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multi-DB Dashboard</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <h1>BDD Dashboard</h1>
+        <p>Visualisation des données : PostgreSQL (Users) · MongoDB (Activity) · Redis (Visits)</p>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="grid">
+        <!-- PostgreSQL -->
+        <article class="card">
+          <div class="card__head">
+            <h2>PostgreSQL — Users</h2>
+            <div class="actions">
+              <button id="btnUsersRefresh" class="btn btn--ghost">Refresh</button>
+              <button id="btnUsersAdd" class="btn">Add demo</button>
+            </div>
+          </div>
+
+          <form id="formUser" class="form">
+            <label class="field">
+              <span>Email</span>
+              <input id="userEmail" type="email" placeholder="ex: alice@mail.com" />
+            </label>
+            <label class="field">
+              <span>Name</span>
+              <input id="userName" type="text" placeholder="ex: Alice" />
+            </label>
+            <button class="btn btn--wide" type="submit">Create user</button>
+          </form>
+
+          <div class="status" id="usersStatus"></div>
+          <pre class="output" id="usersOut">Loading…</pre>
+        </article>
+
+        <!-- MongoDB -->
+        <article class="card">
+          <div class="card__head">
+            <h2>MongoDB — Activity logs</h2>
+            <div class="actions">
+              <button id="btnLogsRefresh" class="btn btn--ghost">Refresh</button>
+              <button id="btnLogsAdd" class="btn">Add demo</button>
+            </div>
+          </div>
+
+          <form id="formLog" class="form">
+            <label class="field">
+              <span>User ID</span>
+              <input id="logUserId" type="number" placeholder="ex: 1" />
+            </label>
+            <label class="field">
+              <span>Action</span>
+              <input id="logAction" type="text" placeholder="ex: login" />
+            </label>
+            <button class="btn btn--wide" type="submit">Create log</button>
+          </form>
+
+          <div class="status" id="logsStatus"></div>
+          <pre class="output" id="logsOut">Loading…</pre>
+        </article>
+
+        <!-- Redis -->
+        <article class="card">
+          <div class="card__head">
+            <h2>Redis — Visits</h2>
+            <div class="actions">
+              <button id="btnVisitsRead" class="btn btn--ghost">Read</button>
+              <button id="btnVisitsIncr" class="btn">+1 visit</button>
+            </div>
+          </div>
+
+          <div class="visits">
+            <div class="visits__number" id="visitsNumber">—</div>
+            <div class="visits__label">Compteur global (Redis)</div>
+          </div>
+
+          <div class="status" id="visitsStatus"></div>
+          <pre class="output" id="visitsOut">{}</pre>
+        </article>
+      </section>
+
+      <footer class="footer">
+        <p>
+          Astuce : commence par créer un user (PostgreSQL), puis ajoute un log (MongoDB) avec son userId.
+        </p>
+      </footer>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
