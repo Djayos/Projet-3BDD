@@ -57,6 +57,27 @@ async function createUser(payload) {
   }
 }
 
+async function loginUser(payload) {
+  const status = $("usersStatus");
+  setStatus(status, "Login user…");
+
+  try {
+    const res = await fetch("/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const data = await safeJson(res);
+
+    if (!res.ok) throw new Error(data.error || "Failed to login user");
+
+    setStatus(status, `User login (id=${data.id}).`, "ok");
+    await loadUsers();
+  } catch (err) {
+    setStatus(status, err.message, "err");
+  }
+}
+
 // MongoDB
 async function loadLogs() {
   const status = $("logsStatus");
@@ -145,6 +166,12 @@ window.addEventListener("DOMContentLoaded", () => {
     const email = $("userEmail").value.trim() || `demo_${Date.now()}@mail.com`;
     const name = $("userName").value.trim() || "Demo User";
     createUser({ email, name });
+  });
+
+  $("formLogin").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = $("userEmail_login").value.trim();
+    loginUser({ email });
   });
 
   $("btnLogsRefresh").addEventListener("click", loadLogs);

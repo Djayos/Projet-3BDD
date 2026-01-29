@@ -9,6 +9,7 @@ app.use(express.json());
 app.use("/users", require("./routes/users"));
 app.use("/activity", require("./routes/activity"));
 app.use("/stats", require("./routes/stats"));
+app.use("/login", require("./routes/login"));
 
 app.use(express.static("public"));
 
